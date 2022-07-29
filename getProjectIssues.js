@@ -58,9 +58,7 @@ const query = gql`
                   ... on ProjectV2ItemFieldPullRequestValue{
                     __typename
                     pullRequests(first: 10){
-                      edges {
-                        cursor
-                        node{
+                      nodes {
                         id
                         isDraft
                         title
@@ -72,7 +70,6 @@ const query = gql`
                         publishedAt
                         updatedAt
                         mergedAt
-                        }
                       }
                     }
                   }
@@ -127,32 +124,28 @@ const getProjectIssues = async (client, PROJECT_ID, params = {currentIteration: 
     if(!params.currentIteration) throw Error("Not found currentIteration")
     if(!params.lastIteration) throw Error("Not found lastIteration")
     let needNextCall = false;
-    const {data} = await client.query({
-        query,
-        variables: {
-            PROJECT_ID,
-        },
-    })
-    const {pageInfo, nodes} = data.node.items;
-    const {hasPreviousPage, startCursor} = pageInfo;
-    console.log(pageInfo)
-    const issueFields = nodes.map((item) => item.fieldValues.nodes)
-    issueFields.forEach((fields) => {
-        const iteration = fields.find((field) => field.__typename === ISSUE_FIELD_NAME.ITERATION)
-        if(!iteration) return;
-        if(!needNextCall) needNextCall = iteration.startDate === params.currentIteration.startDate || iteration.startDate === params.lastIteration.startDate
-    })
-    const issueList = reformatIssueItems(issueFields)
-    if(needNextCall && hasPreviousPage){
-        /**
-         * 이전 페이지 데이터 추가 호출.
-         */
-    }else {
-        /**
-         * 탈출.
-         */
-
-    }
+    let cursor;
+    let issueList = [];
+    do{
+        const {data} = await client.query({
+            query,
+            variables: {
+                PROJECT_ID,
+                Before: cursor
+            },
+        })
+        const {pageInfo, nodes} = data.node.items;
+        const {hasPreviousPage, startCursor} = pageInfo;
+        cursor=startCursor;
+        const issueFields = nodes.map((item) => item.fieldValues.nodes)
+        issueFields.forEach((fields) => {
+            const iteration = fields.find((field) => field.__typename === ISSUE_FIELD_NAME.ITERATION)
+            if(!iteration) return;
+            if(!needNextCall) needNextCall = iteration.startDate === params.currentIteration.startDate || iteration.startDate === params.lastIteration.startDate
+        })
+        issueList = issueList.concat(reformatIssueItems(issueFields))
+        needNextCall = needNextCall && hasPreviousPage
+    }while (needNextCall)
     return issueList;
 }
 

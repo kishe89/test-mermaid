@@ -8,11 +8,24 @@ const createMarkDown = require("./createMarkDown");
 const {mdToPdf} = require("md-to-pdf");
 const writeFile = util.promisify(fs.writeFile)
 const dotenv = require("dotenv");
+const yargs = require("yargs");
 dotenv.config()
 const PROJECT_ID = process.env.PROJECT_ID;
 
+const argv = yargs.command(
+	"time", "시작 datetime(YYYY-MM-DD)",
+	{
+		"time": {
+			description: "시작일",
+			alias: "t",
+			type: "string"
+		}
+	})
+	.help()
+	.argv
 async function managePrompts() {
-	const token = getToken();
+	const inputWeek = argv.time || argv.t;
+	const token = getToken() || process.env.GHP_TOKEN;
 	const client = await createClient(token);
 	const {currentIteration, lastIteration} = await getCurrentIterationProjectsQuery(client, PROJECT_ID, new Date());
 	const Issues = await getProjectIssues(client, PROJECT_ID, {currentIteration, lastIteration});
@@ -24,7 +37,7 @@ async function managePrompts() {
 		if(!issue.Iteration) return false;
 		return issue.Iteration.startDate === lastIteration.startDate
 	})
-	const currentWeek = moment().startOf("weeks").format("YYYY-MM-DD").toString();
+	const currentWeek = moment(inputWeek).startOf("weeks").format("YYYY-MM-DD").toString() || moment().startOf("weeks").format("YYYY-MM-DD").toString();
 	const markdown = createMarkDown(currentIterationIssues, lastIterationIssues)
 	const fileTitle = `./output/${currentWeek}report`;
 	const markdownExt = ".md"

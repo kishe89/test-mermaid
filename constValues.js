@@ -65,6 +65,13 @@ const ISSUE_FIELD_PARSER = {
         return dict;
     },
     ProjectV2ItemFieldMilestoneValue: (field, dict) => {
+        if(field.milestone){
+            dict.Milestone = {
+                title: field.milestone.title,
+                state: field.milestone.state
+            };
+            return dict;
+        }
         dict.Milestone = null;
         return dict
     },
@@ -88,7 +95,7 @@ const ISSUE_FIELD_PARSER = {
         return dict;
     },
     ProjectV2ItemFieldPullRequestValue: (field, dict) => {
-        dict.PullRequest = null;
+        dict.PullRequest = field.pullRequests ? field.pullRequests.nodes : null
         return dict;
     }
 }

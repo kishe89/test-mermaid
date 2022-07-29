@@ -5,7 +5,6 @@ partials
 rendered_PDFs
 *.pdf
 token.json
-output/**.*
 .idea/*
 .env
 ### JetBrains template
