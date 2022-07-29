@@ -29,9 +29,6 @@ jobs:
       - name: Run job
         run: yarn start -t=${{ steps.date.outputs.date }}
 
-      - name: Zip artifact for deployment
-        run: zip release.zip ./output/* -r
-
       - name: Archive Job result
         uses: actions/upload-artifact@v3
         with:
