@@ -6,6 +6,7 @@ on:
       targetDate:
         description: 'Target Week DateTime format string(YYYY-MM-DD)'
         required: true
+        default: 'YYYY-MM-DD'
         type: string
 jobs:
   printIssueToPDF:
