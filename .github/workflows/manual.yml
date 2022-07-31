@@ -13,20 +13,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
     steps:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%M-%D')"
 
-      - uses: actions/checkout@v2
-      - name: Generate Environment Variables File for Production
-        run: |
-          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
-          echo "GHP_TOKEN=$GHP_TOKEN" >> $GITHUB_ENV
-        env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
+#      - uses: actions/checkout@v2
+#      - name: Generate Environment Variables File for Production
+#        run: |
+#          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
+#          echo "GHP_TOKEN=$GHP_TOKEN" >> $GITHUB_ENV
+#        env:
+#          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+#          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2.1.0
