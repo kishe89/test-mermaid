@@ -22,6 +22,13 @@ jobs:
         uses: actions/setup-node@v2.1.0
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Generate Environment Variables File for Production
+        run: |
+          echo "PROJECT_ID=$PROJECT_ID" >> .env
+          echo "GHP_TOKEN=$GHP_TOKEN" >> .env
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
 
       - name: install
         run: yarn install
