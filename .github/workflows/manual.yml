@@ -14,10 +14,10 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-    steps:
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%M-%D')"
+#    steps:
+#      - name: Get current date
+#        id: date
+#        run: echo "::set-output name=date::$(date +'%Y-%M-%D')"
 
 #      - uses: actions/checkout@v2
 #      - name: Generate Environment Variables File for Production
