@@ -20,11 +20,6 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%M-%D')"
 
       - uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.1.0
-        with:
-          node-version: ${{ matrix.node-version }}
       - name: Generate Environment Variables File for Production
         run: |
           touch .env
@@ -34,6 +29,11 @@ jobs:
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.1.0
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: install
         run: yarn install
