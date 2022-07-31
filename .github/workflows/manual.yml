@@ -16,30 +16,20 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - name: log untrusted output
-        run: |
-          echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
-          echo "untrusted output"
-          echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
       - name: Get current date
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-      - name: echo current date
-        run: echo $NOW
-      - name: echo current date
-        run: echo "${{ env.NOW }}"
-      - uses: actions/checkout@v2
-#      - name: Generate Environment Variables File for Production
-#        run: |
-#          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
-#          echo "GHP_TOKEN=$GHP_TOKEN" >> $GITHUB_ENV
-#        env:
-#          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-#          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.1.0
+      - name: Generate Environment Variables File for Production
+        run: |
+          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
+          echo "GHP_TOKEN=$GHP_TOKEN" >> $GITHUB_ENV
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
 
       - name: install
         run: yarn install
