@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Get current date
         id: date
-        run: echo "NOW::$(date +'%Y-%M-%D')" >> $GITHUB_ENV
+        run: echo "{NOW}=$(date +'%Y-%M-%D')" >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
 #      - name: Generate Environment Variables File for Production
