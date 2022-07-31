@@ -25,6 +25,7 @@ const argv = yargs.command(
 	.argv
 async function managePrompts() {
 	const inputWeek = argv.time || argv.t;
+	console.log(process.env)
 	const token = getToken() || process.env.GHP_TOKEN;
 	const client = await createClient(token);
 	const {currentIteration, lastIteration} = await getCurrentIterationProjectsQuery(client, PROJECT_ID, new Date());
