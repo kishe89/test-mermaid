@@ -20,6 +20,8 @@ jobs:
         run: echo "{NOW}=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       - name: echo current date
         run: echo $NOW
+      - name: echo current date
+        run: echo "${{ env.NOW }}"
       - uses: actions/checkout@v2
 #      - name: Generate Environment Variables File for Production
 #        run: |
