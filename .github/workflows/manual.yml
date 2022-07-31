@@ -17,7 +17,7 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Get current date
-        run: echo "{NOW}=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       - name: echo current date
         run: echo $NOW
       - name: echo current date
