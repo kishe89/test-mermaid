@@ -10,7 +10,7 @@ exports.getToken = () => {
         const token = JSON.parse(fs.readFileSync('token.json'));
         return token
     }catch (e) {
-        throw e;
+        console.warn("Not Found Token")
     }
 }
 exports.createClient = async (token) => {
