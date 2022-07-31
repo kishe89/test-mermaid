@@ -27,8 +27,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Generate Environment Variables File for Production
         run: |
+          touch .env
           echo "PROJECT_ID=$PROJECT_ID" >> .env
           echo "GHP_TOKEN=$GHP_TOKEN" >> .env
+          cat .env
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
