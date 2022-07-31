@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Get current date
         id: date
-        run: echo "{date}={$(date +'%Y-%M-%D')}" >> $GITHUB_ENV"
+        run: echo "NOW::$(date +'%Y-%M-%D')" >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
 #      - name: Generate Environment Variables File for Production
@@ -38,7 +38,7 @@ jobs:
         run: yarn install
 
       - name: Run job
-        run: yarn start -t=${{ env.date }}
+        run: yarn start -t=$NOW
 
       - name: Archive Job result
         uses: actions/upload-artifact@v3
