@@ -8,13 +8,14 @@ on:
         required: true
         default: 'YYYY-MM-DD'
         type: string
+
 jobs:
   printIssueToPDF:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16.x]
-#    steps:
+    steps:
 #      - name: Get current date
 #        id: date
 #        run: echo "::set-output name=date::$(date +'%Y-%M-%D')"
