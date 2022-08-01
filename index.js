@@ -9,7 +9,7 @@ const {mdToPdf} = require("md-to-pdf");
 const writeFile = util.promisify(fs.writeFile)
 const dotenv = require("dotenv");
 const yargs = require("yargs");
-dotenv.config()
+// dotenv.config()
 const PROJECT_ID = process.env.PROJECT_ID;
 
 const argv = yargs.command(
@@ -22,11 +22,11 @@ const argv = yargs.command(
 		}
 	})
 	.command(
-		"token", "Github Personal Token",
+		"personalToken", "Github Personal Token",
 		{
-			"token": {
+			"personalToken": {
 				description: "Github Personal Token",
-				alias: "tk",
+				alias: "pt",
 				type: "string"
 			}
 		}
