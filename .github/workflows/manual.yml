@@ -35,7 +35,7 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          author_name: Kim Ji Woon
-          author_email: kishe56@gmail.com
+          author_name: kishe89
+          author_email: kishe89@naver.com
           message: 'manually update $NOW'
           add: '-A'
