@@ -14,3 +14,9 @@ Github 에서 제공하는 ProjectV2(Beta) 를 기반으로 작성되었습니�
 3. [Personal Access Token](https://github.com/settings/tokens/new) 을 필요한 만큼(project, user, issue, repo) 권한을 줘서 생성합니다.
 4. 생성한 [Personal Access Token](https://github.com/settings/tokens/new) 을 환경변수 `process.env.GH_TOKEN` 로 세팅하여 사용합니다.
 5. 프로젝트 루트에서 `yarn start` 를 실행합니다.
+
+## Notice
+
+현재 실행 시점의 이터레이션과 이전 이터레이션 가져오기만 구현되어있음. manually 로 특정 시점 데이터 가져오기는 구현 안함.
+
+추가적으로 필요하다면 구현하도록 한다.
