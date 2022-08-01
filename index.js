@@ -31,7 +31,7 @@ async function managePrompts() {
 		const inputWeek = argv.time || argv.t || moment(new Date()).format("YYYY-MM-DD").toString();
 		const token = argv.k || argv.personalToken || process.env.GHP_TOKEN;
 		const client = await createClient(token);
-		const {currentIteration, lastIteration} = await getCurrentIterationProjectsQuery(client, PROJECT_ID, inputWeek);
+		const {currentIteration, lastIteration} = await getCurrentIterationProjectsQuery(client, PROJECT_ID, new Date());
 		const Issues = await getProjectIssues(client, PROJECT_ID, {currentIteration, lastIteration});
 		const currentIterationIssues = Issues.filter((issue) => {
 			if(!issue.Iteration) return false;
@@ -60,8 +60,8 @@ async function managePrompts() {
 .markdown-body pre > code { white-space: pre-wrap; }}`
 			})
 	}catch (e){
-		console.log(e.response.data)
-		console.log(e.response)
+		// console.log(e.response.data)
+		// console.log(e.response)
 		throw e;
 	}
 
