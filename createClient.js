@@ -31,7 +31,7 @@ exports.createClient = async (token) => {
 			}`
     }), {headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token.token}`
+            "Authorization": `Bearer ${token}`
         }})
     data.data.__schema.types = data.data.__schema.types.filter(
         type => type.possibleTypes !== null,
@@ -42,7 +42,7 @@ exports.createClient = async (token) => {
             uri: "https://api.github.com/graphql",
             fetch:nodeFetch ,
             headers: {
-                "Authorization": `Bearer ${token.token}`
+                "Authorization": `Bearer ${token}`
             }
         }),
         cache: new InMemoryCache({fragmentMatcher: new IntrospectionFragmentMatcher({introspectionQueryResultData: data.data})}),
