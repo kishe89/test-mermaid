@@ -8,45 +8,27 @@ const createMarkDown = require("./createMarkDown");
 const {mdToPdf} = require("md-to-pdf");
 const writeFile = util.promisify(fs.writeFile)
 const dotenv = require("dotenv");
-const yargs = require("yargs");
-// dotenv.config()
-const PROJECT_ID = process.env.PROJECT_ID;
-
-const argv = yargs.command(
-	"time", "시작 datetime(YYYY-MM-DD)",
-	{
-		"time": {
-			description: "시작일",
-			alias: "t",
-			type: "string"
-		}
+const argv = require("yargs/yargs")(process.argv.slice(2))
+	.option('time', {
+		alias: 't',
+		describe: '시작 datetime(YYYY-MM-DD)'
 	})
-	.command(
-		"personalToken", "Github Personal Token",
-		{
-			"personalToken": {
-				description: "Github Personal Token",
-				alias: "pt",
-				type: "string"
-			}
-		}
-	)
-	.command(
-		"projectId", "Github Project id",
-		{
-			"projectId": {
-				description: "Github Project id",
-				alias: "p",
-				type: "string"
-			}
-		}
-	)
+	.option('personalToken', {
+		alias: 'k',
+		describe: 'Github Personal Token'
+	})
+	.option('projectId', {
+		alias: 'p',
+		describe: 'Github Project id'
+	})
+	.demandOption(['time', 'personalToken', 'projectId'], 'Please provide both run and path arguments to work with this tool')
 	.help()
-	.argv
-console.log(argv)
+	.argv;
+dotenv.config()
+const PROJECT_ID = process.env.PROJECT_ID || argv.p || argv.projectId;
 async function managePrompts() {
 	const inputWeek = argv.time || argv.t || new Date();
-	const token = getToken() || argv.tk || argv.token || process.env.GHP_TOKEN;
+	const token = getToken() || argv.k || argv.personalToken || process.env.GHP_TOKEN;
 	console.log(token);
 	console.log(PROJECT_ID);
 	const client = await createClient(token);
