@@ -33,5 +33,5 @@ jobs:
         with:
           author_name: Kim Ji Woon
           author_email: kishe56@gmail.com
-          message: 'manually update $NOW'
+          message: 'automated update $NOW'
           add: '-A'
