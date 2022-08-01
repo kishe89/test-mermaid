@@ -25,10 +25,10 @@ const argv = require("yargs/yargs")(process.argv.slice(2))
 	.help()
 	.argv;
 dotenv.config()
-const PROJECT_ID = process.env.PROJECT_ID + "xx" || argv.p || argv.projectId;
+const PROJECT_ID = process.env.PROJECT_ID || argv.p || argv.projectId;
 async function managePrompts() {
 	const inputWeek = argv.time || argv.t || new Date();
-	const token = getToken() || argv.k || argv.personalToken || process.env.GHP_TOKEN + "xx";
+	const token = getToken() || argv.k || argv.personalToken || process.env.GHP_TOKEN;
 	console.log(token);
 	console.log(PROJECT_ID);
 	const client = await createClient(token);
