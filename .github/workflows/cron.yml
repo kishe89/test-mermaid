@@ -21,13 +21,6 @@ jobs:
         uses: actions/setup-node@v2.1.0
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Generate Environment Variables File for Production
-        run: |
-          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
-          echo "GHP_TOKEN=$GHP_TOKEN" >> $GITHUB_ENV
-        env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
 
       - name: install
         run: yarn install
@@ -35,8 +28,10 @@ jobs:
       - name: Run job
         run: yarn start -t=$NOW
 
-      - name: Archive Job result
-        uses: actions/upload-artifact@v3
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
         with:
-          name: work-report
-          path: output/*
+          author_name: Kim Ji Woon
+          author_email: kishe56@gmail.com
+          message: 'manually update $NOW'
+          add: '-A'
