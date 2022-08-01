@@ -38,9 +38,6 @@ jobs:
       - name: install
         run: yarn install
 
-      - name: set env
-        run: yarn cross-env PROJECT_ID=env.PROJECT_ID GHP_TOKEN=env.GHP_TOKEN
-
       - name: Run Job
         run: yarn start -t=$NOW
 
