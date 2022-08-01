@@ -21,6 +21,25 @@ const argv = yargs.command(
 			type: "string"
 		}
 	})
+	.command(
+		"token", "Github Personal Token",
+		{
+			token: {
+				description: "Github Personal Token",
+				type: "string"
+			}
+		}
+	)
+	.command(
+		"projectId", "Github Project id",
+		{
+			token: {
+				description: "Github Project id",
+				alias: "p",
+				type: "string"
+			}
+		}
+	)
 	.help()
 	.argv
 async function managePrompts() {

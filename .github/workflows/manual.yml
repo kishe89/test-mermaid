@@ -42,7 +42,7 @@ jobs:
         env:
           PROJECT_ID: ${{ env.PROJECT_ID }}
           GHP_TOKEN: ${{ env.GHP_TOKEN }}
-        run: yarn start -t=$NOW
+        run: yarn start -t=$NOW -p=${{env.PROJECT_ID}} -token=${{env.GHP_TOKEN}}
 
       - name: Archive Job result
         uses: actions/upload-artifact@v3
