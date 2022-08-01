@@ -39,7 +39,7 @@ jobs:
         run: yarn install
 
       - name: Run job
-        run: | 
+        run: |
         yarn cross-env PROJECT_ID=env.PROJECT_ID GHP_TOKEN=env.GHP_TOKEN
         yarn start -t=$NOW
 
