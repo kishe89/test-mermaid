@@ -32,3 +32,10 @@ jobs:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
         run: yarn start -t=${{ github.event.inputs.targetDate }}
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Kim Ji Woon
+          author_email: kishe56@gmail.com
+          message: 'manually update $NOW'
+          add: '-A'
