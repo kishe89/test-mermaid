@@ -1,7 +1,7 @@
 {
-  "name": "github-issues-to-pdf",
+  "name": "issue-to-pdf",
   "version": "1.4.0",
-  "description": "Given a username, GIP will crawl through their repositories grabbing all issues and outputting them to a local folder as PDFs.",
+  "description": "Issue to PDF",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexandervalencia/github-issues-to-pdf.git"
+    "url": "git+https://github.com/remo-web-dev/workPlanArchiveRepository.git"
   },
   "keywords": [
     "github",
@@ -22,12 +22,8 @@
     "export",
     "puppeteer"
   ],
-  "author": "Alex Valencia <alex.valencia@me.com> (http://www.avocadodesigns.net)",
+  "author": "Kim Ji Woon <kishe56@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/alexandervalencia/github-issues-to-pdf/issues"
-  },
-  "homepage": "https://github.com/alexandervalencia/github-issues-to-pdf#readme",
   "dependencies": {
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
