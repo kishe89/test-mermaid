@@ -33,7 +33,7 @@ const argv = yargs.command(
 	.command(
 		"projectId", "Github Project id",
 		{
-			token: {
+			projectId: {
 				description: "Github Project id",
 				alias: "p",
 				type: "string"
