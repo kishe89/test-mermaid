@@ -33,9 +33,11 @@ jobs:
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
         run: yarn start -t=$NOW
 
-      - name: Archive Job result
-        uses: actions/upload-artifact@v3
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: work-report
-          path: path/to/output/*
-          retention-days: 90
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: output/my*
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
