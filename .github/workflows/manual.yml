@@ -38,3 +38,4 @@ jobs:
         with:
           name: work-report
           path: output/*
+          retention-days: 90
