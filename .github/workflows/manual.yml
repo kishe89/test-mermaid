@@ -37,5 +37,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: work-report
-          path: output/*
+          path: path/to/output/*
           retention-days: 90
