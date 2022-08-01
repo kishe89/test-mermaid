@@ -27,7 +27,7 @@ async function managePrompts() {
 	const inputWeek = argv.time || argv.t || new Date();
 	const token = getToken() || process.env.GHP_TOKEN;
 	console.log(token);
-	console.log(PROJECT_ID)
+	console.log(PROJECT_ID);
 	const client = await createClient(token);
 	const {currentIteration, lastIteration} = await getCurrentIterationProjectsQuery(client, PROJECT_ID, new Date());
 	const Issues = await getProjectIssues(client, PROJECT_ID, {currentIteration, lastIteration});
