@@ -31,7 +31,7 @@ jobs:
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
-        run: yarn start -t=$NOW -p="$PROJECT_ID" -token="$GHP_TOKEN"
+        run: yarn start -t=$NOW -p="PVT_kwDOBlkgwc4ACnJg" -token="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"
 
       - name: Archive Job result
         uses: actions/upload-artifact@v3
