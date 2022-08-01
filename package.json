@@ -4,7 +4,7 @@
   "description": "Given a username, GIP will crawl through their repositories grabbing all issues and outputting them to a local folder as PDFs.",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env PROJECT_ID=env.PROJECT_ID GHP_TOKEN=env.GHP_TOKEN node index.js",
+    "start": "cross-env PROJECT_ID=${{ env.PROJECT_ID }} GHP_TOKEN=${{ env.GHP_TOKEN }} node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
