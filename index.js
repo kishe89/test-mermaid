@@ -46,7 +46,7 @@ const argv = yargs.command(
 console.log(argv)
 async function managePrompts() {
 	const inputWeek = argv.time || argv.t || new Date();
-	const token = getToken() ? getToken() : process.env.GHP_TOKEN;
+	const token = getToken() || argv.tk || argv.token || process.env.GHP_TOKEN;
 	console.log(token);
 	console.log(PROJECT_ID);
 	const client = await createClient(token);
