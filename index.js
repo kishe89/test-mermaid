@@ -1,6 +1,6 @@
 const getCurrentIterationProjectsQuery = require("./getCurrentIteration");
 const getProjectIssues = require("./getProjectIssues");
-const {getToken, createClient} = require("./createClient");
+const {createClient} = require("./createClient");
 const moment = require("moment");
 const fs = require("fs")
 const util = require("util")
@@ -29,7 +29,7 @@ const PROJECT_ID = process.env.PROJECT_ID || argv.p || argv.projectId;
 async function managePrompts() {
 	try{
 		const inputWeek = argv.time || argv.t || new Date();
-		const token = getToken() || argv.k || argv.personalToken || process.env.GHP_TOKEN;
+		const token = argv.k || argv.personalToken || process.env.GHP_TOKEN;
 		console.log(token);
 		console.log(PROJECT_ID);
 		const client = await createClient(token);

@@ -3,16 +3,6 @@ const {ApolloClient} = require("apollo-client");
 const {createHttpLink} = require("apollo-link-http");
 const nodeFetch = require("node-fetch");
 const {InMemoryCache, IntrospectionFragmentMatcher} = require("apollo-cache-inmemory");
-const fs = require("fs");
-
-exports.getToken = () => {
-    try{
-        const token = JSON.parse(fs.readFileSync('token.json'));
-        return token
-    }catch (e) {
-        console.warn("Not Found Token")
-    }
-}
 exports.createClient = async (token) => {
 
     const {data} = await axios.post("https://api.github.com/graphql", JSON.stringify({
