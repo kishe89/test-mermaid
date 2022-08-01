@@ -28,9 +28,7 @@ jobs:
         run: yarn install
 
       - name: Run Job
-        with:
-          Input: ${{ github.event.inputs.targetDate }}
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
-        run: yarn start -t=$Input
+        run: yarn start -t=${{ github.event.inputs.targetDate }}
