@@ -21,7 +21,7 @@ const argv = require("yargs/yargs")(process.argv.slice(2))
 		alias: 'p',
 		describe: 'Github Project id'
 	})
-	.demandOption(['time', 'personalToken', 'projectId'], 'Please provide both run and path arguments to work with this tool')
+	.demandOption(['time'], 'Please provide both run and path arguments to work with this tool')
 	.help()
 	.argv;
 dotenv.config()
