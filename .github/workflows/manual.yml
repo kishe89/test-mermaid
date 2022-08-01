@@ -28,15 +28,9 @@ jobs:
         run: yarn install
 
       - name: Run Job
+        with:
+          Input: ${{ github.event.inputs.targetDate }}
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
-        run: yarn start -t=${{ github.event.inputs.message }}
-
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: output/*
-          overwrite: true
-          file_glob: true
+        run: yarn start -t=$Input
