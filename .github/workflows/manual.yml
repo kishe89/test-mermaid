@@ -20,15 +20,12 @@ jobs:
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       - name: Generate Environment Variables for Production
         run: |
-          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
-          echo "GHP_TOKEN=$GHP_TOKEN" >> $GITHUB_ENV
+          echo "::set-output name=PROJECT_ID::$(echo ${PROJECT_ID})"
+          echo "::set-output name=GHP_TOKEN::$(echo ${GHP_TOKEN})"
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
-      - name: Echo env variable
-        run: |
-          echo "${{ env.PROJECT_ID }}"
-          echo "${{ env.GHP_TOKEN }}"
+        id: gh-infos
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
@@ -39,10 +36,7 @@ jobs:
         run: yarn install
 
       - name: Run Job
-        env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
-        run: yarn start -t=$NOW -p=$PROJECT_ID -k=$GHP_TOKEN
+        run: yarn start -t=$NOW -p=${{ steps.gh-infos.outputs.PROJECT_ID }} -k=${{ steps.gh-infos.outputs.GHP_TOKEN }}
 
       - name: Archive Job result
         uses: actions/upload-artifact@v3
