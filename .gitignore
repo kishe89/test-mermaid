@@ -3,7 +3,6 @@ node_modules
 .vscode
 partials
 rendered_PDFs
-*.pdf
 token.json
 .idea/*
 .env
