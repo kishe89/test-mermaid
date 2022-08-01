@@ -40,8 +40,8 @@ jobs:
 
       - name: Run Job
         env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
+          PROJECT_ID: ${{ env.PROJECT_ID }}
+          GHP_TOKEN: ${{ env.GHP_TOKEN }}
         run: yarn start -t=$NOW
 
       - name: Archive Job result
