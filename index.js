@@ -47,35 +47,41 @@ async function managePrompts() {
 	const token = getToken() ? getToken() : process.env.GHP_TOKEN;
 	console.log(token);
 	console.log(PROJECT_ID);
-	const client = await createClient(token);
-	const {currentIteration, lastIteration} = await getCurrentIterationProjectsQuery(client, PROJECT_ID, new Date());
-	const Issues = await getProjectIssues(client, PROJECT_ID, {currentIteration, lastIteration});
-	const currentIterationIssues = Issues.filter((issue) => {
-		if(!issue.Iteration) return false;
-		return issue.Iteration.startDate === currentIteration.startDate
-	})
-	const lastIterationIssues = Issues.filter((issue) => {
-		if(!issue.Iteration) return false;
-		return issue.Iteration.startDate === lastIteration.startDate
-	})
-	const currentWeek = moment(inputWeek).startOf("weeks").format("YYYY-MM-DD").toString() || moment().startOf("weeks").format("YYYY-MM-DD").toString();
-	const markdown = createMarkDown(currentIterationIssues, lastIterationIssues)
-	const fileTitle = `./output/${currentWeek}report`;
-	const markdownExt = ".md"
-	const pdfExt = ".pdf"
-	await writeFile(`${fileTitle}${markdownExt}`,markdown);
-	await mdToPdf(
-		{content: markdown},
-		{
-			dest: `${fileTitle}${pdfExt}`,
-			pdf_options: {format: "A2", margin: "20mm"},
-			stylesheet: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css",
-			body_class: "markdown-body",
-			css: `|-
+	try {
+		const client = await createClient(token);
+		const {currentIteration, lastIteration} = await getCurrentIterationProjectsQuery(client, PROJECT_ID, new Date());
+		const Issues = await getProjectIssues(client, PROJECT_ID, {currentIteration, lastIteration});
+		const currentIterationIssues = Issues.filter((issue) => {
+			if(!issue.Iteration) return false;
+			return issue.Iteration.startDate === currentIteration.startDate
+		})
+		const lastIterationIssues = Issues.filter((issue) => {
+			if(!issue.Iteration) return false;
+			return issue.Iteration.startDate === lastIteration.startDate
+		})
+		const currentWeek = moment(inputWeek).startOf("weeks").format("YYYY-MM-DD").toString() || moment().startOf("weeks").format("YYYY-MM-DD").toString();
+		const markdown = createMarkDown(currentIterationIssues, lastIterationIssues)
+		const fileTitle = `./output/${currentWeek}report`;
+		const markdownExt = ".md"
+		const pdfExt = ".pdf"
+		await writeFile(`${fileTitle}${markdownExt}`,markdown);
+		await mdToPdf(
+			{content: markdown},
+			{
+				dest: `${fileTitle}${pdfExt}`,
+				pdf_options: {format: "A2", margin: "20mm"},
+				stylesheet: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css",
+				body_class: "markdown-body",
+				css: `|-
 .page-break { page-break-after: always; }
 .markdown-body { font-size: 11px; }
 .markdown-body pre > code { white-space: pre-wrap; }}`
-		})
+			})
+	}
+	catch (e) {
+		console.log(e);
+		throw e
+	}
 }
 
 managePrompts();
