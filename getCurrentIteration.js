@@ -33,12 +33,20 @@ const getCurrentIterationProjectsQuery = async (client, PROJECT_ID, CURRENT_DATE
 		`,
         variables: {PROJECT_ID}
     }
+    let isPrevIterationTime = false;
+    let isPrevLastIterationIndex = 0;
     const {data} = await client.query(query);
     const iterationData = data.node.fields.nodes.find((item) => item.__typename === "ProjectV2IterationField");
     const {iterations, completedIterations} = iterationData.configuration;
     const currTime = new moment(CURRENT_DATE_TIME).startOf("weeks").format("YYYY-MM-DD").toString();
-    const currentIteration = iterations.find((iter) => iter.startDate === currTime)
-    const lastIteration = completedIterations[0]
+    const isExistCurr = iterations.find((iter) => iter.startDate === currTime);
+    if(isExistCurr)  isPrevIterationTime = false;
+    else isPrevIterationTime = true;
+    const currentIteration = !isPrevIterationTime ? isExistCurr : completedIterations.find((iter, index) => {
+        isPrevLastIterationIndex = index;
+        return iter.startDate === currTime
+    });
+    const lastIteration = !isPrevIterationTime ? completedIterations[0] : completedIterations[isPrevLastIterationIndex + 1]
     return {currentIteration, lastIteration};
 }
 module.exports = getCurrentIterationProjectsQuery
