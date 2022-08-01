@@ -63,6 +63,7 @@ async function managePrompts() {
 			})
 	}catch (e){
 		console.log(e.response.data)
+		console.log(e.response)
 		throw e;
 	}
 
