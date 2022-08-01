@@ -31,13 +31,12 @@ jobs:
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
-        run: yarn start -t=$NOW
+        run: yarn start -t=${{ github.event.inputs.message }}
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: output/*
-          tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
