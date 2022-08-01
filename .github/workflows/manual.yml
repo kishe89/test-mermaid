@@ -18,17 +18,6 @@ jobs:
     steps:
       - name: Get current date
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-      - name: Generate Environment Variables for Production
-        run: |
-          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
-          echo "GHP_TOKEN=$GHP_TOKEN" >> $GITHUB_ENV
-        env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
-      - name: Echo env variable
-        run: |
-          echo "${{ env.PROJECT_ID }}"
-          echo "${{ env.GHP_TOKEN }}"
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
