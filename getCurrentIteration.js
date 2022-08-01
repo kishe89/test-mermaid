@@ -6,7 +6,7 @@ const getCurrentIterationProjectsQuery = async (client, PROJECT_ID, CURRENT_DATE
 			query($PROJECT_ID: ID!){
 				node(id: $PROJECT_ID){
 					... on ProjectV2{
-						fields(first: 100){
+						fields(last: 100){
 							nodes{
 								... on ProjectV2IterationField{
 									name
