@@ -57,15 +57,15 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues) => {
         userDict[issue.Users].last.push(issue)
     })
     const pages = Object.entries(userDict).map(([key, {curr, last}]) => {
-        const userNameTitle = {h1: `작업자: ${key}`}
-        const currentIterationTitle = {h3: `이번주 작업 ${currentIterationIssues[0].Iteration.title}`}
-        const currentIterationStartDate = {p: `시작일: ${currentIterationIssues[0].Iteration.startDate}`}
-        const currentIterationDuration = {p: `기간: ${currentIterationIssues[0].Iteration.duration}일`}
+        const userNameTitle = {h1: Buffer.from(`작업자: ${key}`, "utf8").toString()}
+        const currentIterationTitle = {h3: Buffer.from(`이번주 작업 ${currentIterationIssues[0].Iteration.title}`, "utf8").toString()}
+        const currentIterationStartDate = {p: Buffer.from(`시작일: ${currentIterationIssues[0].Iteration.startDate}`, "utf8").toString()}
+        const currentIterationDuration = {p: Buffer.from(`기간: ${currentIterationIssues[0].Iteration.duration}일`, "utf8").toString()}
 
         const currentIssueTable = {table: {headers, rows: curr}}
-        const lastIterationTitle = {h3: `지난주 작업 ${lastIterationIssues[0].Iteration.title}`}
-        const lastIterationStartDate = {p: `시작일: ${lastIterationIssues[0].Iteration.startDate}`}
-        const lastIterationDuration = {p: `기간: ${lastIterationIssues[0].Iteration.duration}일`}
+        const lastIterationTitle = {h3: Buffer.from(`지난주 작업 ${lastIterationIssues[0].Iteration.title}`, "utf8")}
+        const lastIterationStartDate = {p: Buffer.from(`시작일: ${lastIterationIssues[0].Iteration.startDate}`, "utf8")}
+        const lastIterationDuration = {p: Buffer.from(`기간: ${lastIterationIssues[0].Iteration.duration}일`, "utf8")}
         const lastIssueTable = {table: {headers, rows: last}}
         return [
             userNameTitle,
