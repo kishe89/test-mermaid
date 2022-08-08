@@ -3,7 +3,7 @@ name: cron
 on:
   schedule:
     # UTC 0 * 18 * * 1 based.
-    - cron: '* 1 * * 1'
+    - cron: '31 18 * * 1'
 
 jobs:
   cron:
@@ -28,7 +28,7 @@ jobs:
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
-        run: yarn start -t=$NOW
+        run: yarn start -t="${{ env.NOW }}"
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
