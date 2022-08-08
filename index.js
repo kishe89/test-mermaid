@@ -46,7 +46,7 @@ async function managePrompts() {
 		const fileTitle = `./output/${currentWeek}report`;
 		const markdownExt = ".md"
 		const pdfExt = ".pdf"
-		await writeFile(`${fileTitle}${markdownExt}`,markdown);
+		await writeFile(`${fileTitle}${markdownExt}`,markdown, "utf8");
 		await mdToPdf(
 			{content: markdown},
 			{
