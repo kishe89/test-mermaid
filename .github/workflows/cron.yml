@@ -15,17 +15,19 @@ jobs:
       - name: Get current date
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.1.0
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
 
       - name: install
         run: yarn install
 
       - name: Run job
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          GHP_TOKEN: ${{ secrets.GHP_TOKEN }}
         run: yarn start -t=$NOW
 
       - name: Commit changes
