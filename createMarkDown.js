@@ -15,7 +15,7 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues, currentWeek
         })
     })
     const userDict = {}
-    const title = {h3: "Remo Web/app 개발팀 작업 보고서"}
+    const title = {h3: Buffer.from("Remo Web/app 개발팀 작업 보고서", "utf8").toString()}
     const writeDate = {h4: `written at ${currentWeek}`}
     const headers = Object.keys(headersDict)
     const issueToRow = (issue) => {
