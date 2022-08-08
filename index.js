@@ -50,6 +50,8 @@ async function managePrompts() {
 		await mdToPdf(
 			{content: markdown},
 			{
+				md_file_encoding: "utf8",
+				stylesheet_encoding: "utf8",
 				dest: `${fileTitle}${pdfExt}`,
 				pdf_options: {format: "A2", margin: "20mm"},
 				stylesheet: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css",
