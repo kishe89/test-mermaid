@@ -3,7 +3,7 @@ name: cron
 on:
   schedule:
     # UTC 0 * 18 * * 1 based.
-    - cron: '*/2 1 * * 1'
+    - cron: '* 1 * * 1'
 
 jobs:
   cron:
