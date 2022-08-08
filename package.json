@@ -35,6 +35,7 @@
     "github": "^9.2.0",
     "graphql": "^16.5.0",
     "graphql-tag": "^2.12.6",
+    "iconv-lite": "^0.6.3",
     "inquirer": "^3.0.6",
     "json2md": "^1.12.0",
     "md-to-pdf": "^5.1.0",
