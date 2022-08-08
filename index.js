@@ -42,7 +42,7 @@ async function managePrompts() {
 			return issue.Iteration.startDate === lastIteration.startDate
 		})
 		const currentWeek = moment(inputWeek).startOf("weeks").format("YYYY-MM-DD").toString() || moment().startOf("weeks").format("YYYY-MM-DD").toString();
-		const markdown = createMarkDown(currentIterationIssues, lastIterationIssues)
+		const markdown = createMarkDown(currentIterationIssues, lastIterationIssues, currentWeek)
 		const fileTitle = `./output/${currentWeek}report`;
 		const markdownExt = ".md"
 		const pdfExt = ".pdf"

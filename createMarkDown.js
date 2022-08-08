@@ -1,6 +1,6 @@
 const moment = require("moment");
 const json2md = require("json2md");
-const createMarkDown = (currentIterationIssues, lastIterationIssues) => {
+const createMarkDown = (currentIterationIssues, lastIterationIssues, currentWeek) => {
     const headersDict = {};
     currentIterationIssues.forEach((issue) => {
         const keyList = Object.keys(issue)
@@ -15,7 +15,6 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues) => {
         })
     })
     const userDict = {}
-    const currentWeek = moment().startOf("weeks").format("YYYY-MM-DD").toString();
     const title = {h3: "Remo Web/app 개발팀 작업 보고서"}
     const writeDate = {h4: `written at ${currentWeek}`}
     const headers = Object.keys(headersDict)
@@ -63,9 +62,9 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues) => {
         const currentIterationDuration = {p: Buffer.from(`기간: ${currentIterationIssues[0].Iteration.duration}일`, "utf8").toString()}
 
         const currentIssueTable = {table: {headers, rows: curr}}
-        const lastIterationTitle = {h3: Buffer.from(`지난주 작업 ${lastIterationIssues[0].Iteration.title}`, "utf8")}
-        const lastIterationStartDate = {p: Buffer.from(`시작일: ${lastIterationIssues[0].Iteration.startDate}`, "utf8")}
-        const lastIterationDuration = {p: Buffer.from(`기간: ${lastIterationIssues[0].Iteration.duration}일`, "utf8")}
+        const lastIterationTitle = {h3: Buffer.from(`지난주 작업 ${lastIterationIssues[0].Iteration.title}`, "utf8").toString()}
+        const lastIterationStartDate = {p: Buffer.from(`시작일: ${lastIterationIssues[0].Iteration.startDate}`, "utf8").toString()}
+        const lastIterationDuration = {p: Buffer.from(`기간: ${lastIterationIssues[0].Iteration.duration}일`, "utf8").toString()}
         const lastIssueTable = {table: {headers, rows: last}}
         return [
             userNameTitle,
@@ -79,7 +78,9 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues) => {
             lastIssueTable
         ]
     })
-
+    console.log(title)
+    console.log(writeDate)
+    console.log(pages)
     return json2md( [
         title,
         writeDate,
