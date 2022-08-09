@@ -1,6 +1,6 @@
 const moment = require("moment");
 const json2md = require("json2md");
-const iconv = require("iconv-lite");
+
 const createMarkDown = (currentIterationIssues, lastIterationIssues, currentWeek) => {
     const headersDict = {};
     currentIterationIssues.forEach((issue) => {
@@ -16,34 +16,34 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues, currentWeek
         })
     })
     const userDict = {}
-    const emptyString = iconv.encode("", "utf8").toString()
-    const title = {h3: iconv.encode("Remo Web/app 개발팀 작업 보고서", "utf8").toString()}
-    const writeDate = {h4: iconv.encode(`written at ${currentWeek}`, "utf8").toString()}
+    const emptyString = "";
+    const title = {h3: "Remo Web/app 개발팀 작업 보고서"}
+    const writeDate = {h4: `written at ${currentWeek}`}
     const headers = Object.keys(headersDict)
     const issueToRow = (issue) => {
         const dict = {}
         headers.forEach((header) => {
             if(header === "Users"){
-                dict[header] = issue[header] ? iconv.encode(issue[header].map((user) => {
+                dict[header] = issue[header] ? issue[header].map((user) => {
                     return user.name ? user.name : user.id
-                }).join(","), "utf8").toString() : emptyString
+                }).join(",") : emptyString
                 return;
             }else if(header === "Label") {
-                dict[header] = issue[header] ? iconv.encode(issue[header].name,"utf8").toString() : emptyString
+                dict[header] = issue[header] ? issue[header].name: emptyString
                 return;
             }else if(header === "Iteration")  {
-                dict[header] = issue[header] ? iconv.encode(`${issue[header].title} 시작일: ${issue[header].startDate}`,"utf8").toString(): emptyString;
+                dict[header] = issue[header] ? `${issue[header].title} 시작일: ${issue[header].startDate}`: emptyString;
                 return;
             }
             else if(header === "Milestone") {
-                dict[header] = issue[header] ? iconv.encode(`${issue[header].title} : ${issue[header].state}`, "utf8").toString() : emptyString
+                dict[header] = issue[header] ? `${issue[header].title} : ${issue[header].state}` : emptyString
                 return;
             }
             else if(header === "PullRequest")  {
-                dict[header] = issue[header] ? iconv.encode(`제목: ${issue[header][0].title} 병합일: ${moment(issue[header][0].mergedAt).format("YYYY-MM-DD").toString()}`,"utf8").toString(): emptyString;
+                dict[header] = issue[header] ? `제목: ${issue[header][0].title} 병합일: ${moment(issue[header][0].mergedAt).format("YYYY-MM-DD").toString()}`: emptyString;
                 return;
             }
-            dict[header] = issue[header] ?iconv.encode(issue[header], "utf8").toString() : emptyString
+            dict[header] = issue[header] ?issue[header]: emptyString
         })
         return dict
     }
@@ -58,15 +58,15 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues, currentWeek
         userDict[issue.Users].last.push(issue)
     })
     const pages = Object.entries(userDict).map(([key, {curr, last}]) => {
-        const userNameTitle = {h1: iconv.encode(`작업자: ${key}`, "utf8").toString()}
-        const currentIterationTitle = {h3: iconv.encode(`이번주 작업 ${currentIterationIssues[0].Iteration.title}`, "utf8").toString()}
-        const currentIterationStartDate = {p: iconv.encode(`시작일: ${currentIterationIssues[0].Iteration.startDate}`, "utf8").toString()}
-        const currentIterationDuration = {p: iconv.encode(`기간: ${currentIterationIssues[0].Iteration.duration}일`, "utf8").toString()}
+        const userNameTitle = {h1:`작업자: ${key}`}
+        const currentIterationTitle = {h3:`이번주 작업 ${currentIterationIssues[0].Iteration.title}`}
+        const currentIterationStartDate = {p: `시작일: ${currentIterationIssues[0].Iteration.startDate}`}
+        const currentIterationDuration = {p: `기간: ${currentIterationIssues[0].Iteration.duration}일`}
 
         const currentIssueTable = {table: {headers, rows: curr}}
-        const lastIterationTitle = {h3: iconv.encode(`지난주 작업 ${lastIterationIssues[0].Iteration.title}`, "utf8").toString()}
-        const lastIterationStartDate = {p: iconv.encode(`시작일: ${lastIterationIssues[0].Iteration.startDate}`, "utf8").toString()}
-        const lastIterationDuration = {p: iconv.encode(`기간: ${lastIterationIssues[0].Iteration.duration}일`, "utf8").toString()}
+        const lastIterationTitle = {h3: `지난주 작업 ${lastIterationIssues[0].Iteration.title}`}
+        const lastIterationStartDate = {p: `시작일: ${lastIterationIssues[0].Iteration.startDate}`}
+        const lastIterationDuration = {p: `기간: ${lastIterationIssues[0].Iteration.duration}일`}
         const lastIssueTable = {table: {headers, rows: last}}
         return [
             userNameTitle,
@@ -80,9 +80,6 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues, currentWeek
             lastIssueTable
         ]
     })
-    console.log(title)
-    console.log(writeDate)
-    console.log(pages)
     return json2md( [
         title,
         writeDate,
