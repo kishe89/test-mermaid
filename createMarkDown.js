@@ -16,8 +16,9 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues, currentWeek
         })
     })
     const userDict = {}
+    const emptyString = iconv.encode("", "utf8").toString()
     const title = {h3: iconv.encode("Remo Web/app 개발팀 작업 보고서", "utf8").toString()}
-    const writeDate = {h4: `written at ${currentWeek}`}
+    const writeDate = {h4: iconv.encode(`written at ${currentWeek}`, "utf8").toString()}
     const headers = Object.keys(headersDict)
     const issueToRow = (issue) => {
         const dict = {}
@@ -25,24 +26,24 @@ const createMarkDown = (currentIterationIssues, lastIterationIssues, currentWeek
             if(header === "Users"){
                 dict[header] = issue[header] ? iconv.encode(issue[header].map((user) => {
                     return user.name ? user.name : user.id
-                }).join(","), "utf8").toString() : ""
+                }).join(","), "utf8").toString() : emptyString
                 return;
             }else if(header === "Label") {
-                dict[header] = issue[header] ? iconv.encode(issue[header].name,"utf8").toString() : ""
+                dict[header] = issue[header] ? iconv.encode(issue[header].name,"utf8").toString() : emptyString
                 return;
             }else if(header === "Iteration")  {
-                dict[header] = issue[header] ? iconv.encode(`${issue[header].title} 시작일: ${issue[header].startDate}`,"utf8").toString(): "";
+                dict[header] = issue[header] ? iconv.encode(`${issue[header].title} 시작일: ${issue[header].startDate}`,"utf8").toString(): emptyString;
                 return;
             }
             else if(header === "Milestone") {
-                dict[header] = issue[header] ? iconv.encode(`${issue[header].title} : ${issue[header].state}`, "utf8").toString() : ""
+                dict[header] = issue[header] ? iconv.encode(`${issue[header].title} : ${issue[header].state}`, "utf8").toString() : emptyString
                 return;
             }
             else if(header === "PullRequest")  {
-                dict[header] = issue[header] ? iconv.encode(`제목: ${issue[header][0].title} 병합일: ${moment(issue[header][0].mergedAt).format("YYYY-MM-DD").toString()}`,"utf8").toString(): "";
+                dict[header] = issue[header] ? iconv.encode(`제목: ${issue[header][0].title} 병합일: ${moment(issue[header][0].mergedAt).format("YYYY-MM-DD").toString()}`,"utf8").toString(): emptyString;
                 return;
             }
-            dict[header] = issue[header] ?iconv.encode(issue[header], "utf8").toString() : ""
+            dict[header] = issue[header] ?iconv.encode(issue[header], "utf8").toString() : emptyString
         })
         return dict
     }
