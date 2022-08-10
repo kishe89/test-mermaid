@@ -18,7 +18,7 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - name: pt_BR.UTF-8
+      - name: ko_KR.UTF-8
         run: |
           sudo locale-gen ko_KR.UTF-8
           sudo update-locale LANG=ko_KR.UTF-8
