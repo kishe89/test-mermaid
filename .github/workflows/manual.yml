@@ -18,6 +18,9 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
+      - name: Install Chinese font
+        shell: bash
+        run: sudo apt-get update && sudo apt-get install -y language-pack-ko
       - name: ko_KR.UTF-8
         run: |
           sudo locale-gen ko_KR.UTF-8
