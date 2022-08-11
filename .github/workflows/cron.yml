@@ -12,6 +12,16 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
+      - name: ko_KR.UTF-8
+        run: |
+          sudo locale-gen ko_KR.UTF-8
+          sudo update-locale LANG=ko_KR.UTF-8
+      - name: Install Korean Language Pack
+        shell: bash
+        run: sudo apt-get update && sudo apt-get install -y language-pack-ko
+      - name: Install Korean font
+        shell: bash
+        run: sudo apt-get install -y fonts-nanum
       - name: Get current date
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
