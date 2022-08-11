@@ -7,7 +7,6 @@ const util = require("util")
 const createMarkDown = require("./createMarkDown");
 const {mdToPdf} = require("md-to-pdf");
 const writeFile = util.promisify(fs.writeFile)
-const iconv = require("iconv-lite");
 const dotenv = require("dotenv");
 const argv = require("yargs/yargs")(process.argv.slice(2))
 	.option('time', {
@@ -47,9 +46,9 @@ async function managePrompts() {
 		const fileTitle = `./output/${currentWeek}report`;
 		const markdownExt = ".md"
 		const pdfExt = ".pdf"
-		await writeFile(`${fileTitle}${markdownExt}`,iconv.encode(markdown, "utf8").toString(), "utf8");
+		await writeFile(`${fileTitle}${markdownExt}`,markdown, "utf8");
 		await mdToPdf(
-			{content: iconv.encode(markdown, "utf8").toString()},
+			{content: markdown},
 			{
 				md_file_encoding: "utf-8",
 				stylesheet_encoding: "utf-8",
