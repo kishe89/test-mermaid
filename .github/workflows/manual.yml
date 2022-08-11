@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo locale-gen ko_KR.UTF-8
           sudo update-locale LANG=ko_KR.UTF-8
-      - name: Install Korean font
+      - name: Install Korean Language Pack
         shell: bash
         run: sudo apt-get update && sudo apt-get install -y language-pack-ko
       - name: Install Korean font
