@@ -8,6 +8,7 @@ const createMarkDown = require("./createMarkDown");
 const {mdToPdf} = require("md-to-pdf");
 const writeFile = util.promisify(fs.writeFile)
 const dotenv = require("dotenv");
+const markdownpdf = require("markdown-pdf")
 const argv = require("yargs/yargs")(process.argv.slice(2))
 	.option('time', {
 		alias: 't',
@@ -47,20 +48,29 @@ async function managePrompts() {
 		const markdownExt = ".md"
 		const pdfExt = ".pdf"
 		await writeFile(`${fileTitle}${markdownExt}`,markdown, "utf8");
-		await mdToPdf(
-			{content: markdown},
-			{
-				md_file_encoding: "utf-8",
-				stylesheet_encoding: "utf-8",
-				dest: `${fileTitle}${pdfExt}`,
-				pdf_options: {format: "A2", margin: "20mm"},
-				stylesheet: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css",
-				body_class: "markdown-body",
-				css: `|-
-.page-break { page-break-after: always; }
-.markdown-body { font-size: 11px; }
-.markdown-body pre > code { white-space: pre-wrap; }}`
+// 		await mdToPdf(
+// 			{content: markdown},
+// 			{
+// 				md_file_encoding: "utf-8",
+// 				stylesheet_encoding: "utf-8",
+// 				dest: `${fileTitle}${pdfExt}`,
+// 				pdf_options: {format: "A2", margin: "20mm"},
+// 				stylesheet: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css",
+// 				body_class: "markdown-body",
+// 				css: `|-
+// .page-break { page-break-after: always; }
+// .markdown-body { font-size: 11px; }
+// .markdown-body pre > code { white-space: pre-wrap; }}`
+// 			})
+		await new Promise((resolve) => {
+			markdownpdf({
+				paperFormat: "A3",
+				cssPath: "./css/github.css"
+			}).from.string(markdown).to(`${fileTitle}${pdfExt}`, function () {
+				console.log("Created", `${fileTitle}${pdfExt}`)
+				return resolve();
 			})
+		})
 	}catch (e){
 		// console.log(e.response.data)
 		// console.log(e.response)
