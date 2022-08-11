@@ -64,7 +64,7 @@ async function managePrompts() {
 // 			})
 		await new Promise((resolve) => {
 			markdownpdf({
-				paperFormat: "A3",
+				// paperFormat: "A3",
 				cssPath: "./css/github.css"
 			}).from.string(markdown).to(`${fileTitle}${pdfExt}`, function () {
 				console.log("Created", `${fileTitle}${pdfExt}`)
