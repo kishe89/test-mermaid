@@ -27,7 +27,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y language-pack-ko
       - name: Install Korean font
         shell: bash
-        run: sudo apt-get -y fonts-nanum fonts-nanum-coding fonts-nanum-extra
+        run: sudo apt-get -y fonts-nanum
       - name: Get current date
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       - uses: actions/checkout@v3
