@@ -115,6 +115,11 @@ const reformatIssueItems = (issueFields = []) => {
     return issueFields.map((issueFields) => {
         const dict = {}
         issueFields.forEach((field) => {
+            if(ISSUE_FIELD_PARSER[ISSUE_FIELD_NAME[ISSUE_FIELD_VALUE[field.__typename]]] === undefined){
+            //     unhandle parser.
+                return;
+            }
+
             ISSUE_FIELD_PARSER[ISSUE_FIELD_NAME[ISSUE_FIELD_VALUE[field.__typename]]](field, dict)
         })
         return dict
